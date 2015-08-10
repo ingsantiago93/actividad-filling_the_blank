@@ -41,9 +41,6 @@ $('body').trigger({
 
 });
 
-
-
-
 $('body').on('EDGE_Recurso_sendPreviousData',function(evt)
 {
     var stage = $(evt.sym.getComposition().getStage().ele);
@@ -86,7 +83,7 @@ function block_every_text(sym)
     }
 }
 
-$('body').on('ed_check_activity', function(evt) {
+$('body').on('EDGE_Recurso_Submit', function(evt) {
 
     var stage = $(evt.sym.getComposition().getStage().ele);
     var json_stage = stage.prop("ed_json_property_object");

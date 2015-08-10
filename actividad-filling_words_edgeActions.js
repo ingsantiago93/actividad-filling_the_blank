@@ -26,7 +26,7 @@ var Composition = Edge.Composition, Symbol = Edge.Symbol; // los alias más comu
       Symbol.bindElementAction(compId, symbolName, "${text_3}", "click", function(sym, e) {
          // introducir aquí código para clic de ratón
          $('body').trigger({
-            type: 'ed_check_activity',
+            type: 'EDGE_Recurso_Submit',
             sym: sym,
             evt: e
          });
