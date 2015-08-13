@@ -1,53 +1,66 @@
-$('body').on('ed_send_data', function(evt) {
+function EDGE_Recurso_Submit(sym)
+{
+    $('body').trigger({
+        type: 'EDGE_Recurso_Submit',
+        sym: sym
+    });
+}
+
+$('body').on('EDGE_Recurso_promiseCreated', function(evt)
+{
+    ed_send_data(evt.sym);
+});
+
+function ed_send_data(sym)
+{
     $.getJSON('config.json', function(json_content) {
 
-        var stage = $(evt.sym.getComposition().getStage().ele);
+        var stage = $(sym.getComposition().getStage().ele);
         stage.prop('ed_json_property_object', json_content);
+        stage.prop('ed_user_attempts',json_content.attempts);
 
         $.each(json_content.palabras_a_escribir, function(pos, json_palabra) {
-            //console.log("SHOW ME THE POS " + pos + " _space_ " + json_palabra.ed_palabra);
 
             var element = $("<input/>", {
                 type: "text"
             });
+            element.css(stage.prop('ed_json_property_object').css_config);
             element.css({
-                width: evt.sym.$('text_' + (pos + 1)).find('p').css("width"),
-                height: evt.sym.$('text_' + (pos + 1)).find('p').css("height"),
-                "text-align": "center"
+                width: sym.$('text_' + (pos + 1)).find('p').css("width"),
+                height: sym.$('text_' + (pos + 1)).find('p').css("height")
             });
 
-            evt.sym.$('text_' + (pos + 1)).html(element);
+            sym.$('text_' + (pos + 1)).html(element);
         });
-
      
         $('body').trigger({
             type: 'EDGE_Plantilla_creationComplete',
-            sym: evt.sym
+            sym: sym
         });
         
     });
-});
+}
 
 $('body').on("EDGE_Plantilla_creationComplete", function (evt) {
 
-$('body').trigger({
+/*$('body').trigger({
             type: "EDGE_Recurso_sendPreviousData",
-            block: false,
-            previous_data: ["palabra","distribution","ok"],
-            attempts: 2,
+            block: true,
+            previous_data: ["palabra","distribution","respuesta"],
+            attempts: 8,
+            show_answers: false;
             sym: evt.sym,
             identify: {}
-        });
-
+        });*/
 });
 
-$('body').on('EDGE_Recurso_sendPreviousData',function(evt)
+$('body').on('EDGE_Recurso_sendPreviousData EDGE_Recurso_postSubmitApplied',function(evt)
 {
     var stage = $(evt.sym.getComposition().getStage().ele);
+    var json_content = stage.prop('ed_json_property_object');
 
     if(typeof(evt.previous_data) != "undefined")
     {
-        console.log(evt.previous_data);
         for (var i = evt.previous_data.length - 1; i >= 0; i--)
         {
             evt.sym.$('text_' + (i + 1)).find('input').val(""+evt.previous_data[i]);            
@@ -60,15 +73,26 @@ $('body').on('EDGE_Recurso_sendPreviousData',function(evt)
         stage.prop('ed_blocked',true);
         block_every_text(evt.sym);
     }
-    else
-    {
-        //nada
-    }
 
     if(typeof(evt.attempts) != "undefined")
     {
         stage.prop('ed_attemps',evt.attempts);
-        console.log(evt.attempts)
+    }
+
+    if (evt.reset)
+    {
+        for (var i = json_content.palabras_a_escribir.length - 1; i >= 0; i--)
+        {  
+            evt.sym.$('text_' + (i + 1)).find('input[type="text"]').val("");
+        }
+    }
+
+    if(evt.show_answers)
+    {
+        for (var i = json_content.palabras_a_escribir.length - 1; i >= 0; i--)
+        {  
+            evt.sym.$('text_' + (i + 1)).find('input[type="text"]').val(""+json_content.palabras_a_escribir[i].ed_palabra[0]);
+        }
     }
 
 });
@@ -83,84 +107,69 @@ function block_every_text(sym)
     }
 }
 
-$('body').on('EDGE_Recurso_Submit', function(evt) {
+function EDGE_Recurso_Submit(sym)
+{
+    $('body').trigger({
+        type: 'EDGE_Recurso_Submit',
+        sym: sym
+    });
+}
 
-    var stage = $(evt.sym.getComposition().getStage().ele);
-    var json_stage = stage.prop("ed_json_property_object");
-    var activity_score = 0;
+$('body').on('EDGE_Recurso_Submit', function(evt)
+{
+    do_submit(evt.sym);
+});
 
+function do_submit(sym)
+{
+    var stage = $(sym.getComposition().getStage().ele);
+    var json_content = stage.prop("ed_json_property_object");
     var retorno_datos = {};
+    retorno_datos.attempts_to = stage.prop('ed_user_attempts');
     retorno_datos.user_answer = [];
     retorno_datos.position_which_is_right = [];
-    retorno_datos.correct_anserws = json_stage.palabras_a_escribir;
+    retorno_datos.correct_answers = json_content.palabras_a_escribir;
 
     if (stage.prop('ed_blocked')) {
         return;
     }
 
-    for (var i = json_stage.palabras_a_escribir.length - 1; i >= 0; i--) {
-        retorno_datos.correct_anserws[i] = json_stage.palabras_a_escribir[i].ed_palabra;
-        retorno_datos.user_answer[i] = evt.sym.$('text_' + (i + 1)).find('input[type="text"]').val();
-        console.log(json_stage.palabras_a_escribir[i]);     
-        if (evt.sym.$('text_' + (i + 1)).find('input[type="text"]').val() == json_stage.palabras_a_escribir[i]) {
-            console.info("This is correct");
-            activity_score = activity_score + 1;
-            retorno_datos.position_which_is_right[i] = true;
-        } else {
-            //No debe sumar puntos si su respuesta es incorrecta
-            console.info("This is INCORRECT");
-            retorno_datos.position_which_is_right[i] = false;
-        }
-    }
-    
-    division = activity_score / json_stage.palabras_a_escribir.length;
-    multiplicacion = Math.round(division * 100);
-
-    retorno_datos.evt = evt;
-    retorno_datos.json = json_stage;
-    retorno_datos.user_score = multiplicacion;
-    retorno_datos.minimun_score = json_stage.feedback.config_score.min_score_user;
-
-
-    //Revisar si el puntaje del usuario es suficiente para pasar.
-    if (multiplicacion >= json_stage.feedback.config_score.min_score_user) {
-        $.each(json_stage.feedback.correcto, function(pos, item) {
-            if (multiplicacion > parseInt(pos)) {
-                retorno_datos.feedback = item;
-                return false;
-            } else {
-                console.error("No se encontró retroalimentación válida ", multiplicacion);
+    for (var i = json_content.palabras_a_escribir.length - 1; i >= 0; i--)
+    {  
+        retorno_datos.user_answer[i] = sym.$('text_' + (i + 1)).find('input[type="text"]').val();
+        for (var j = json_content.palabras_a_escribir[i].ed_palabra.length - 1; j >= 0; j--)
+        {
+            if (sym.$('text_' + (i + 1)).find('input[type="text"]').val() == json_content.palabras_a_escribir[i].ed_palabra[j])
+            {
+                //console.info("This is correct");
+                retorno_datos.position_which_is_right[i] = true;
+                retorno_datos.final_stage = "correct";
+                break;
             }
-        });
-    } else {
-        //If de intentos.
-        /*var intentos_usuario = stage.prop('ed_attemps',evt.attempts);
-        if (typeof(json_stage.feedback.attempts[intentos_usuario]) != "undefined") {
-            retorno_datos.feedback = json_stage.feedback.attempts[intentos_usuario];
-            intentos_usuario = intentos_usuario + 1;
-            evt.sym.$("contenedor_padre").prop('ed_user_attemps', intentos_usuario);
-            $.each(json_stage.words, function(pos, json_word) {
-                position_array[pos] = json_word.word;
-            });
-            for (var i = position_array.length - 1; i >= 0; i--) {
-                j = Math.floor(Math.random() * (i + 1));
-                temp = position_array[i];
-                position_array[i] = position_array[j];
-                position_array[j] = temp;
-                $("ul#list_sort li:nth-child(" + (i + 1) + ")", evt.sym.$('contenedor_padre')).html(position_array[i]);
+            else
+            {
+                //console.info("This is INCORRECT");
+                retorno_datos.position_which_is_right[i] = false;
+                retorno_datos.final_stage = "incorrect";
             }
-        } else {
-            $.each(json_stage.feedback.incorrecto, function(pos, item) {
-                console.log(multiplicacion + " " + parseInt(pos))
-                if (multiplicacion >= parseInt(pos)) {
-                    retorno_datos.feedback = item;
-                    return false;
-                } else {
-                    console.error("No se encontró retroalimentación inválida ", multiplicacion);
-                }
-            });
-        }*/
+        };
     }
-    console.log(retorno_datos);
+    retorno_datos.sym = sym; 
+    retorno_datos.json = json_content;
+
+    var ed_obj_evt = 
+    {
+        type: "EDGE_Plantilla_submitApplied",
+        interactionType: "fill-in",
+        json: json_content,
+        answer: retorno_datos.user_answer,
+        results: retorno_datos.final_stage,
+        position_which_is_right: retorno_datos.position_which_is_right,
+        attempts: retorno_datos.attempts_to,
+        attempts_limit: json_content.attempts,
+        sym: sym,
+        identify: stage.prop("ed_identify")
+    };
+    parent.$(parent.document).trigger(ed_obj_evt);
     return retorno_datos;
-});
+}

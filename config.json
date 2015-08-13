@@ -1,64 +1,26 @@
 {
     "palabras_a_escribir": [
     {
-        "ed_palabra":"palabra"
+        "ed_palabra":["palabra_a","pAlabra_A","paLabRa_A","paLaBrA_a"],
+        "pregunta": "pregunta 1"
     },
     {
-        "ed_palabra":"distribution"
+        "ed_palabra":["palabra_b","palabra_b_1","palabra_b_2","palabra_b_3"],
+        "pregunta": "pregunta 2"
     },
     {
-        "ed_palabra":"PLUS"
+        "ed_palabra":["palabra_c_0","palabra_c_1","palabra_c_2","palabra_c_3"],
+        "pregunta": "pregunta 3"
     }],
-	"feedback":{
-        "attempts":{
-            "0": {
-                "attempts": 0,
-                "type_of_feedback": "try_again_1",
-                "text_feedback": "example words for the feedback"
-            },
-            "1": {
-                "attempts": 1,
-                "type_of_feedback": "try_again_2",
-                "text_feedback": "example words for the feedback"
-            }
-        },
-        "correcto": {
-            "51":
-            {
-               "type_of_feedback": "good_one_1",
-                "text_feedback": "example words for the feedback"
-            },
-            "80":
-            {
-               "type_of_feedback": "good_one_2",
-                "text_feedback": "example words for the feedback"
-            },
-            "100":
-            {
-               "type_of_feedback": "good_one_3",
-                "text_feedback": "example words for the feedback"
-            }    
-        },
-        "incorrecto": {
-            "0":
-            {
-               "type_of_feedback": "bad_one_1",
-                "text_feedback": "example words for the feedback"
-            },
-            "30":
-            {
-               "type_of_feedback": "bad_one_2",
-                "text_feedback": "example words for the feedback"
-            },
-            "49":
-            {
-               "type_of_feedback": "bad_one_3",
-                "text_feedback": "example words for the feedback"
-            }
-        },
-        "config_score": {
-            "min_score_user": 50
-        }
-	},
-    "reset": 1
+    "attempts": 2,
+    "css_config": {
+        "background-color": "#FF00AA",
+        "color": "#00FF00",
+        "font-size": "30px",
+        "font-family": "'Source Sans Pro', sans-serif;",
+        "text-align": "center",        
+        "border": "none",
+        "position": "absolute"
+    },
+    "pregunta": "ESTA ES UNA PREGUNTA DE PRUEBA PARA TOMAR TODAS LAS INTERACCIONES"
 }

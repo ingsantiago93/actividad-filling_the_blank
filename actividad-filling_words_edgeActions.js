@@ -15,21 +15,23 @@ var Composition = Edge.Composition, Symbol = Edge.Symbol; // los alias más comu
       
       Symbol.bindSymbolAction(compId, symbolName, "creationComplete", function(sym, e) {
          // Insertar código para ejecutarse cuando el símbolo se crea aquí - M'kay
-         $('body').trigger({
+         /*$('body').trigger({
             type: 'ed_send_data',
             sym: sym,
             evt: e
-         });         
+         });*/
+         ed_send_data(sym);
       });
       //Edge binding end
 
       Symbol.bindElementAction(compId, symbolName, "${text_3}", "click", function(sym, e) {
          // introducir aquí código para clic de ratón
-         $('body').trigger({
-            type: 'EDGE_Recurso_Submit',
-            sym: sym,
-            evt: e
-         });
+      });
+      //Edge binding end
+
+      Symbol.bindElementAction(compId, symbolName, "${btn_submit}", "click", function(sym, e) {
+         // introducir aquí código para clic de ratón
+         EDGE_Recurso_Submit(sym);
       });
       //Edge binding end
 
@@ -59,5 +61,13 @@ var Composition = Edge.Composition, Symbol = Edge.Symbol; // los alias más comu
    
    })("text_3");
    //Edge symbol end:'text_3'
+
+   //=========================================================
+   
+   //Edge symbol: 'btn_submit'
+   (function(symbolName) {   
+   
+   })("btn_submit");
+   //Edge symbol end:'btn_submit'
 
 })(window.jQuery || AdobeEdge.$, AdobeEdge, "EDGE-14164065");

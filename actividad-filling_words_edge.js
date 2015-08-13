@@ -46,6 +46,12 @@
                             symbolName: 'text_3',
                             type: 'rect',
                             rect: ['383', '110', '128', '43', 'auto', 'auto']
+                        },
+                        {
+                            id: 'btn_submit',
+                            symbolName: 'btn_submit',
+                            type: 'rect',
+                            rect: ['393', '294', '106', '43', 'auto', 'auto']
                         }
                     ],
                     style: {
@@ -83,11 +89,11 @@
                             fill: ['rgba(191,0,0,1.00)']
                         },
                         {
-                            type: 'text',
+                            rect: ['0px', '0px', '140px', '43px', 'auto', 'auto'],
                             id: 'Text',
                             text: '<p style=\"margin: 0px;\">​</p>',
-                            rect: ['0px', '0px', '140px', '43px', 'auto', 'auto'],
-                            font: ['Arial, Helvetica, sans-serif', [24, ''], 'rgba(0,0,0,1)', 'normal', 'none', '', 'break-word', 'normal']
+                            font: ['Arial, Helvetica, sans-serif', [24, ''], 'rgba(0,0,0,1)', 'normal', 'none', '', 'break-word', 'normal'],
+                            type: 'text'
                         }
                     ],
                     style: {
@@ -122,13 +128,13 @@
                             fill: ['rgba(0,0,220,1.00)']
                         },
                         {
-                            type: 'text',
                             rect: ['0px', '0px', '167px', '43px', 'auto', 'auto'],
-                            text: '<p style=\"margin: 0px;\">​</p>',
-                            id: 'Text2',
-                            textStyle: ['', '', '', '', 'none'],
+                            font: ['Arial, Helvetica, sans-serif', [24, 'px'], 'rgba(0,0,0,1)', '400', 'none', 'normal', 'break-word', 'normal'],
                             align: 'left',
-                            font: ['Arial, Helvetica, sans-serif', [24, 'px'], 'rgba(0,0,0,1)', '400', 'none', 'normal', 'break-word', 'normal']
+                            id: 'Text2',
+                            text: '<p style=\"margin: 0px;\">​</p>',
+                            textStyle: ['', '', '', '', 'none'],
+                            type: 'text'
                         }
                     ],
                     style: {
@@ -163,18 +169,51 @@
                             fill: ['rgba(0,132,37,1.00)']
                         },
                         {
-                            type: 'text',
                             rect: ['0px', '0px', '128px', '43px', 'auto', 'auto'],
-                            text: '<p style=\"margin: 0px;\">​</p>',
-                            id: 'Text3',
-                            textStyle: ['', '', '', '', 'none'],
+                            font: ['Arial, Helvetica, sans-serif', [24, 'px'], 'rgba(0,0,0,1)', '400', 'none', 'normal', 'break-word', 'normal'],
                             align: 'left',
-                            font: ['Arial, Helvetica, sans-serif', [24, 'px'], 'rgba(0,0,0,1)', '400', 'none', 'normal', 'break-word', 'normal']
+                            id: 'Text3',
+                            text: '<p style=\"margin: 0px;\">​</p>',
+                            textStyle: ['', '', '', '', 'none'],
+                            type: 'text'
                         }
                     ],
                     style: {
                         '${symbolSelector}': {
                             rect: [null, null, '128px', '43px']
+                        }
+                    }
+                },
+                timeline: {
+                    duration: 0,
+                    autoPlay: true,
+                    data: [
+
+                    ]
+                }
+            },
+            "btn_submit": {
+                version: "6.0.0",
+                minimumCompatibleVersion: "5.0.0",
+                build: "6.0.0.400",
+                scaleToFit: "none",
+                centerStage: "none",
+                resizeInstances: false,
+                content: {
+                    dom: [
+                        {
+                            rect: ['0px', '0px', '106px', '43px', 'auto', 'auto'],
+                            borderRadius: ['50%', '50%', '50%', '50%'],
+                            id: 'Ellipse',
+                            stroke: [0, 'rgba(0,0,0,1)', 'none'],
+                            type: 'ellipse',
+                            fill: ['rgba(192,192,192,1)']
+                        }
+                    ],
+                    style: {
+                        '${symbolSelector}': {
+                            isStage: 'true',
+                            rect: [undefined, undefined, '106px', '43px']
                         }
                     }
                 },
