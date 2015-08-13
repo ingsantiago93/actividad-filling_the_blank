@@ -14,13 +14,7 @@ var Composition = Edge.Composition, Symbol = Edge.Symbol; // los alias más comu
       
       
       Symbol.bindSymbolAction(compId, symbolName, "creationComplete", function(sym, e) {
-         // Insertar código para ejecutarse cuando el símbolo se crea aquí - M'kay
-         /*$('body').trigger({
-            type: 'ed_send_data',
-            sym: sym,
-            evt: e
-         });*/
-         ed_send_data(sym);
+         // Insertar código para ejecutarse cuando el símbolo se crea aquí - M'kay         
       });
       //Edge binding end
 

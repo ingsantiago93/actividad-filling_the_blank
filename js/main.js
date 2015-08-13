@@ -1,11 +1,3 @@
-function EDGE_Recurso_Submit(sym)
-{
-    $('body').trigger({
-        type: 'EDGE_Recurso_Submit',
-        sym: sym
-    });
-}
-
 $('body').on('EDGE_Recurso_promiseCreated', function(evt)
 {
     ed_send_data(evt.sym);
@@ -32,10 +24,11 @@ function ed_send_data(sym)
 
             sym.$('text_' + (pos + 1)).html(element);
         });
-     
+
         parent.$(parent.document).trigger({
             type: 'EDGE_Plantilla_creationComplete',
-            sym: sym
+            sym: sym,
+            identify: stage.prop('ed_identify')
         });
         
     });
@@ -43,15 +36,6 @@ function ed_send_data(sym)
 
 $('body').on("EDGE_Plantilla_creationComplete", function (evt) {
 
-/*$('body').trigger({
-            type: "EDGE_Recurso_sendPreviousData",
-            block: true,
-            previous_data: ["palabra","distribution","respuesta"],
-            attempts: 8,
-            show_answers: false;
-            sym: evt.sym,
-            identify: {}
-        });*/
 });
 
 $('body').on('EDGE_Recurso_sendPreviousData EDGE_Recurso_postSubmitApplied',function(evt)
@@ -76,7 +60,7 @@ $('body').on('EDGE_Recurso_sendPreviousData EDGE_Recurso_postSubmitApplied',func
 
     if(typeof(evt.attempts) != "undefined")
     {
-        stage.prop('ed_attemps',evt.attempts);
+        stage.prop('ed_user_attempts',evt.attempts);
     }
 
     if (evt.reset)
