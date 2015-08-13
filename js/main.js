@@ -33,7 +33,7 @@ function ed_send_data(sym)
             sym.$('text_' + (pos + 1)).html(element);
         });
      
-        $('body').trigger({
+        parent.$(parent.document).trigger({
             type: 'EDGE_Plantilla_creationComplete',
             sym: sym
         });
