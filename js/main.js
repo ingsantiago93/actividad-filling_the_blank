@@ -3,13 +3,17 @@ $('body').on('EDGE_Recurso_promiseCreated', function(evt)
     ed_send_data(evt.sym);
 });
 
+var outer_stage;
+
 function ed_send_data(sym)
 {
     $.getJSON('config.json', function(json_content) {
 
         var stage = $(sym.getComposition().getStage().ele);
+        outer_stage = $(sym.getComposition().getStage().ele);
         stage.prop('ed_json_property_object', json_content);
         stage.prop('ed_user_attempts',json_content.attempts);
+        stage.prop('ed_sym',sym);
 
         $.each(json_content.palabras_a_escribir, function(pos, json_palabra) {
 
@@ -30,9 +34,22 @@ function ed_send_data(sym)
             sym: sym,
             identify: stage.prop('ed_identify')
         });
-        
+
+        console.log($('input[type="text"]'));
+        $('input[type="text"]').attr("onkeypress","send_on_change()");
+    });    
+}
+
+function send_on_change()
+{
+    parent.$(parent.document).trigger(
+    {
+        type: "EDGE_Plantilla_on_change",
+        sym: outer_stage.prop('ed_sym'),
+        identify: outer_stage.prop("ed_identify")
     });
 }
+
 
 $('body').on("EDGE_Plantilla_creationComplete", function (evt) {
 
@@ -119,8 +136,12 @@ function do_submit(sym)
     }
 
     for (var i = json_content.palabras_a_escribir.length - 1; i >= 0; i--)
-    {  
-        retorno_datos.user_answer[i] = sym.$('text_' + (i + 1)).find('input[type="text"]').val();
+    {          
+        if(sym.$('text_' + (i + 1)).find('input[type="text"]').val() != "")
+        {
+            retorno_datos.user_answer[i] = sym.$('text_' + (i + 1)).find('input[type="text"]').val();
+        }
+        
         for (var j = json_content.palabras_a_escribir[i].ed_palabra.length - 1; j >= 0; j--)
         {
             if (sym.$('text_' + (i + 1)).find('input[type="text"]').val() == json_content.palabras_a_escribir[i].ed_palabra[j])
@@ -154,6 +175,7 @@ function do_submit(sym)
         sym: sym,
         identify: stage.prop("ed_identify")
     };
+    console.log(ed_obj_evt);
     parent.$(parent.document).trigger(ed_obj_evt);
     return retorno_datos;
 }
