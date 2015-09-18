@@ -89,11 +89,11 @@
                             fill: ['rgba(191,0,0,1.00)']
                         },
                         {
-                            rect: ['0px', '0px', '140px', '43px', 'auto', 'auto'],
+                            font: ['Arial, Helvetica, sans-serif', [24, ''], 'rgba(0,0,0,1)', 'normal', 'none', '', 'break-word', 'normal'],
                             id: 'Text',
                             text: '<p style=\"margin: 0px;\">​</p>',
-                            font: ['Arial, Helvetica, sans-serif', [24, ''], 'rgba(0,0,0,1)', 'normal', 'none', '', 'break-word', 'normal'],
-                            type: 'text'
+                            type: 'text',
+                            rect: ['0px', '0px', '140px', '43px', 'auto', 'auto']
                         }
                     ],
                     style: {
@@ -128,13 +128,13 @@
                             fill: ['rgba(0,0,220,1.00)']
                         },
                         {
-                            rect: ['0px', '0px', '167px', '43px', 'auto', 'auto'],
                             font: ['Arial, Helvetica, sans-serif', [24, 'px'], 'rgba(0,0,0,1)', '400', 'none', 'normal', 'break-word', 'normal'],
-                            align: 'left',
+                            type: 'text',
+                            textStyle: ['', '', '', '', 'none'],
                             id: 'Text2',
                             text: '<p style=\"margin: 0px;\">​</p>',
-                            textStyle: ['', '', '', '', 'none'],
-                            type: 'text'
+                            align: 'left',
+                            rect: ['0px', '0px', '167px', '43px', 'auto', 'auto']
                         }
                     ],
                     style: {
@@ -169,13 +169,13 @@
                             fill: ['rgba(0,132,37,1.00)']
                         },
                         {
-                            rect: ['0px', '0px', '128px', '43px', 'auto', 'auto'],
                             font: ['Arial, Helvetica, sans-serif', [24, 'px'], 'rgba(0,0,0,1)', '400', 'none', 'normal', 'break-word', 'normal'],
-                            align: 'left',
+                            type: 'text',
+                            textStyle: ['', '', '', '', 'none'],
                             id: 'Text3',
                             text: '<p style=\"margin: 0px;\">​</p>',
-                            textStyle: ['', '', '', '', 'none'],
-                            type: 'text'
+                            align: 'left',
+                            rect: ['0px', '0px', '128px', '43px', 'auto', 'auto']
                         }
                     ],
                     style: {
@@ -204,10 +204,11 @@
                         {
                             rect: ['0px', '0px', '106px', '43px', 'auto', 'auto'],
                             borderRadius: ['50%', '50%', '50%', '50%'],
-                            id: 'Ellipse',
                             stroke: [0, 'rgba(0,0,0,1)', 'none'],
+                            id: 'Ellipse',
+                            opacity: '0.56551724137931',
                             type: 'ellipse',
-                            fill: ['rgba(192,192,192,1)']
+                            fill: ['rgba(160,0,70,1.00)']
                         }
                     ],
                     style: {
@@ -218,10 +219,53 @@
                     }
                 },
                 timeline: {
-                    duration: 0,
+                    duration: 350,
                     autoPlay: true,
+                    labels: {
+                        "normal": 0,
+                        "desactivado": 350
+                    },
                     data: [
-
+                        [
+                            "eid1",
+                            "opacity",
+                            0,
+                            0,
+                            "linear",
+                            "${Ellipse}",
+                            '1',
+                            '1'
+                        ],
+                        [
+                            "eid2",
+                            "opacity",
+                            350,
+                            0,
+                            "linear",
+                            "${Ellipse}",
+                            '1',
+                            '0.56551724137931'
+                        ],
+                        [
+                            "eid4",
+                            "background-color",
+                            0,
+                            0,
+                            "linear",
+                            "${Ellipse}",
+                            'rgba(192,192,192,1)',
+                            'rgba(192,192,192,1)'
+                        ],
+                        [
+                            "eid3",
+                            "background-color",
+                            350,
+                            0,
+                            "linear",
+                            "${Ellipse}",
+                            'rgba(192,192,192,1)',
+                            'rgba(160,0,70,1.00)'
+                        ]
                     ]
                 }
             }
