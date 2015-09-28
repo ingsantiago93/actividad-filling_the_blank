@@ -80,7 +80,7 @@ function send_on_change()
 
     for (var i = json_content.palabras_a_escribir.length - 1; i >= 0; i--)
     {
-        console.log(retorno_datos.user_answer);
+        //console.log(retorno_datos.user_answer);
         if(retorno_datos.user_answer.length == json_content.palabras_a_escribir.length)
         {
             if(retorno_datos.user_answer[i] == "")
@@ -144,7 +144,7 @@ $('body').on("EDGE_Plantilla_creationComplete", function (evt)
 
 $('body').on('EDGE_Recurso_sendPreviousData EDGE_Recurso_postSubmitApplied EDGE_Recurso_onChange',function(evt)
 {
-    console.log(evt);
+    //console.log(evt);
     var stage = $(evt.sym.getComposition().getStage().ele);
     var json_content = stage.prop('ed_json_property_object');
 
@@ -198,7 +198,7 @@ $('body').on('EDGE_Recurso_sendPreviousData EDGE_Recurso_postSubmitApplied EDGE_
             }
             catch(err)
             {
-                //console.log(err);
+                ////console.log(err);
             }            
             break;
         case "activado":          
@@ -258,7 +258,7 @@ function do_submit(sym)
     if (stage.prop('ed_blocked')) {
         return;
     }
-    console.log("After this");
+    //console.log("After this");
     for (var i = json_content.palabras_a_escribir.length - 1; i >= 0; i--)
     {          
         if(sym.$('text_' + (i + 1)).find('input[type="text"]').val() != "")
