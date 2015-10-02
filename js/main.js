@@ -37,9 +37,9 @@ function ed_send_data(sym)
 
         $('input[type="text"]').attr("onkeyup","send_on_change()");
 
-        if(sym.$("btn_submit").length>0)
+        if(sym.$("Submit").length>0)
         {
-            sym.getSymbol("btn_submit").play("desactivado");            
+            sym.getSymbol("Submit").playReverse("desactivado");            
         }
 
         stage.prop('ed_blocked',true);
@@ -80,7 +80,6 @@ function send_on_change()
 
     for (var i = json_content.palabras_a_escribir.length - 1; i >= 0; i--)
     {
-        //console.log(retorno_datos.user_answer);
         if(retorno_datos.user_answer.length == json_content.palabras_a_escribir.length)
         {
             if(retorno_datos.user_answer[i] == "")
@@ -93,18 +92,18 @@ function send_on_change()
 
     if(retorno_datos.isReady == true)
     {
-        if(sym.$("btn_submit").length>0)
+        if(sym.$("Submit").length>0)
         {
-            sym.getSymbol("btn_submit").playReverse("normal");
+            sym.getSymbol("Submit").play("activado");
         }
 
         outer_stage.prop('ed_blocked',false);        
     }
     else
     {
-        if(sym.$("btn_submit").length>0)
+        if(sym.$("Submit").length>0)
         {
-            sym.getSymbol("btn_submit").play("desactivado");
+            sym.getSymbol("Submit").playReverse("desactivado");
         }
 
         outer_stage.prop('ed_blocked',false);
@@ -144,7 +143,6 @@ $('body').on("EDGE_Plantilla_creationComplete", function (evt)
 
 $('body').on('EDGE_Recurso_sendPreviousData EDGE_Recurso_postSubmitApplied EDGE_Recurso_onChange',function(evt)
 {
-    //console.log(evt);
     var stage = $(evt.sym.getComposition().getStage().ele);
     var json_content = stage.prop('ed_json_property_object');
 
@@ -189,24 +187,24 @@ $('body').on('EDGE_Recurso_sendPreviousData EDGE_Recurso_postSubmitApplied EDGE_
         case "desactivado":
             try
             {
-                if(sym.$("btn_submit").length>0)
+                if(sym.$("Submit").length>0)
                 {
-                    evt.sym.getSymbol("btn_submit").play("desactivado");                    
+                    evt.sym.getSymbol("Submit").playReverse("desactivado");                    
                 }
 
                 outer_stage.prop('ed_blocked',true);
             }
             catch(err)
             {
-                ////console.log(err);
+                //console.log(err);
             }            
             break;
         case "activado":          
             try
             {
-                if(sym.$("btn_submit").length>0)
+                if(sym.$("Submit").length>0)
                 {
-                    evt.sym.getSymbol("btn_submit").playReverse("normal");
+                    evt.sym.getSymbol("Submit").play("activado");
                 }
 
                 outer_stage.prop('ed_blocked',false);
@@ -246,6 +244,11 @@ $('body').on('EDGE_Recurso_Submit', function(evt)
 
 function do_submit(sym)
 {
+    if(sym.$("Submit").length>0)
+    {
+        sym.getSymbol("Submit").playReverse("desactivado");                    
+    }
+
     var stage = $(sym.getComposition().getStage().ele);
     var json_content = stage.prop("ed_json_property_object");
     var retorno_datos = {};
@@ -258,7 +261,7 @@ function do_submit(sym)
     if (stage.prop('ed_blocked')) {
         return;
     }
-    //console.log("After this");
+
     for (var i = json_content.palabras_a_escribir.length - 1; i >= 0; i--)
     {          
         if(sym.$('text_' + (i + 1)).find('input[type="text"]').val() != "")

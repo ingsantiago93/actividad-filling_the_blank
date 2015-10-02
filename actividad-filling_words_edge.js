@@ -48,10 +48,11 @@
                             rect: ['383', '110', '128', '43', 'auto', 'auto']
                         },
                         {
-                            id: 'btn_submit',
-                            symbolName: 'btn_submit',
+                            id: 'Submit',
+                            symbolName: 'Submit',
                             type: 'rect',
-                            rect: ['393', '294', '106', '43', 'auto', 'auto']
+                            rect: ['331px', '328px', 'undefined', 'undefined', 'auto', 'auto'],
+                            cursor: 'pointer'
                         }
                     ],
                     style: {
@@ -64,7 +65,7 @@
                     }
                 },
                 timeline: {
-                    duration: 0,
+                    duration: 2000,
                     autoPlay: true,
                     data: [
 
@@ -89,11 +90,11 @@
                             fill: ['rgba(191,0,0,1.00)']
                         },
                         {
-                            font: ['Arial, Helvetica, sans-serif', [24, ''], 'rgba(0,0,0,1)', 'normal', 'none', '', 'break-word', 'normal'],
+                            rect: ['0px', '0px', '140px', '43px', 'auto', 'auto'],
                             id: 'Text',
                             text: '<p style=\"margin: 0px;\">​</p>',
-                            type: 'text',
-                            rect: ['0px', '0px', '140px', '43px', 'auto', 'auto']
+                            font: ['Arial, Helvetica, sans-serif', [24, ''], 'rgba(0,0,0,1)', 'normal', 'none', '', 'break-word', 'normal'],
+                            type: 'text'
                         }
                     ],
                     style: {
@@ -128,13 +129,13 @@
                             fill: ['rgba(0,0,220,1.00)']
                         },
                         {
+                            rect: ['0px', '0px', '167px', '43px', 'auto', 'auto'],
                             font: ['Arial, Helvetica, sans-serif', [24, 'px'], 'rgba(0,0,0,1)', '400', 'none', 'normal', 'break-word', 'normal'],
-                            type: 'text',
-                            textStyle: ['', '', '', '', 'none'],
-                            id: 'Text2',
                             text: '<p style=\"margin: 0px;\">​</p>',
+                            id: 'Text2',
+                            textStyle: ['', '', '', '', 'none'],
                             align: 'left',
-                            rect: ['0px', '0px', '167px', '43px', 'auto', 'auto']
+                            type: 'text'
                         }
                     ],
                     style: {
@@ -169,13 +170,13 @@
                             fill: ['rgba(0,132,37,1.00)']
                         },
                         {
+                            rect: ['0px', '0px', '128px', '43px', 'auto', 'auto'],
                             font: ['Arial, Helvetica, sans-serif', [24, 'px'], 'rgba(0,0,0,1)', '400', 'none', 'normal', 'break-word', 'normal'],
-                            type: 'text',
-                            textStyle: ['', '', '', '', 'none'],
-                            id: 'Text3',
                             text: '<p style=\"margin: 0px;\">​</p>',
+                            id: 'Text3',
+                            textStyle: ['', '', '', '', 'none'],
                             align: 'left',
-                            rect: ['0px', '0px', '128px', '43px', 'auto', 'auto']
+                            type: 'text'
                         }
                     ],
                     style: {
@@ -204,17 +205,16 @@
                         {
                             rect: ['0px', '0px', '106px', '43px', 'auto', 'auto'],
                             borderRadius: ['50%', '50%', '50%', '50%'],
-                            stroke: [0, 'rgba(0,0,0,1)', 'none'],
-                            id: 'Ellipse',
                             opacity: '0.56551724137931',
+                            id: 'Ellipse',
+                            stroke: [0, 'rgba(0,0,0,1)', 'none'],
                             type: 'ellipse',
                             fill: ['rgba(160,0,70,1.00)']
                         }
                     ],
                     style: {
                         '${symbolSelector}': {
-                            isStage: 'true',
-                            rect: [undefined, undefined, '106px', '43px']
+                            rect: [null, null, '106px', '43px']
                         }
                     }
                 },
@@ -265,6 +265,71 @@
                             "${Ellipse}",
                             'rgba(192,192,192,1)',
                             'rgba(160,0,70,1.00)'
+                        ]
+                    ]
+                }
+            },
+            "Submit": {
+                version: "6.0.0",
+                minimumCompatibleVersion: "5.0.0",
+                build: "6.0.0.400",
+                scaleToFit: "none",
+                centerStage: "none",
+                resizeInstances: false,
+                content: {
+                    dom: [
+                        {
+                            type: 'rect',
+                            borderRadius: ['23px', '23px', '23px', '23px 23px'],
+                            id: 'RoundRect',
+                            stroke: [0, 'rgba(0,0,0,1)', 'none'],
+                            rect: ['0px', '1px', '213px', '43px', 'auto', 'auto'],
+                            opacity: '0.5',
+                            fill: ['rgba(192,192,192,1)', [270, [['rgba(111,67,158,1.00)', 50], ['rgba(84,53,118,1.00)', 50]]]],
+                            c: [
+                            {
+                                font: ['Arial, Helvetica, sans-serif', [24, ''], 'rgba(0,0,0,1)', 'normal', 'none', '', 'break-word', 'normal'],
+                                type: 'text',
+                                id: 'texto_4',
+                                text: '<p style=\"margin: 0px; text-align: center;\">​<span style=\"font-family: source-sans-pro, sans-serif; font-weight: 600; color: rgb(255, 255, 255); font-size: 25px;\">Enviar</span></p>',
+                                textShadow: ['rgba(0,0,0,0.65098)', 1, 1, 1],
+                                rect: ['0px', '-1px', '213px', '31px', 'auto', 'auto']
+                            }]
+                        }
+                    ],
+                    style: {
+                        '${symbolSelector}': {
+                            rect: [null, null, '213px', '43px']
+                        }
+                    }
+                },
+                timeline: {
+                    duration: 2000,
+                    autoPlay: true,
+                    labels: {
+                        "desactivado": 0,
+                        "activado": 2000
+                    },
+                    data: [
+                        [
+                            "eid356",
+                            "opacity",
+                            0,
+                            0,
+                            "linear",
+                            "${RoundRect}",
+                            '0.5',
+                            '0.5'
+                        ],
+                        [
+                            "eid355",
+                            "opacity",
+                            2000,
+                            0,
+                            "linear",
+                            "${RoundRect}",
+                            '0.5',
+                            '1'
                         ]
                     ]
                 }
