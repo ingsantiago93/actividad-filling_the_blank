@@ -59,7 +59,10 @@ function send_on_change()
 
     for (var i = json_content.palabras_a_escribir.length - 1; i >= 0; i--)
     {
-        retorno_datos.user_answer[i] = sym.$('text_' + (i + 1)).find('input[type="text"]').val();
+        if(sym.$('text_' + (i + 1)).find('input[type="text"]').val() != "")
+        {
+            retorno_datos.user_answer[i] = sym.$('text_' + (i + 1)).find('input[type="text"]').val();
+        }
         for (var j = json_content.palabras_a_escribir[i].ed_palabra.length - 1; j >= 0; j--)
         {
             if (sym.$('text_' + (i + 1)).find('input[type="text"]').val() == json_content.palabras_a_escribir[i].ed_palabra[j])
@@ -80,13 +83,9 @@ function send_on_change()
 
     for (var i = json_content.palabras_a_escribir.length - 1; i >= 0; i--)
     {
-        if(retorno_datos.user_answer.length == json_content.palabras_a_escribir.length)
+        if(retorno_datos.user_answer.length < json_content.palabras_a_escribir.length)
         {
-            if(retorno_datos.user_answer[i] == "")
-            {
-                retorno_datos.isReady = false;
-                break;
-            }
+            retorno_datos.isReady = false;
         }
     };
 
@@ -106,7 +105,7 @@ function send_on_change()
             sym.getSymbol("Submit").playReverse("desactivado");
         }
 
-        outer_stage.prop('ed_blocked',false);
+        outer_stage.prop('ed_blocked',true);
     }
 
     parent.$(parent.document).trigger(
@@ -271,19 +270,30 @@ function do_submit(sym)
         
         for (var j = json_content.palabras_a_escribir[i].ed_palabra.length - 1; j >= 0; j--)
         {
-            if (sym.$('text_' + (i + 1)).find('input[type="text"]').val() == json_content.palabras_a_escribir[i].ed_palabra[j])
+            if(sym.$('text_' + (i + 1)).find('input[type="text"]').val() === json_content.palabras_a_escribir[i].ed_palabra[j])
             {
                 retorno_datos.position_which_is_right[i] = true;
-                retorno_datos.final_stage = "correct";
                 break;
             }
             else
             {
                 retorno_datos.position_which_is_right[i] = false;
-                retorno_datos.final_stage = "incorrect";
             }
         };
     }
+
+    for (var i = retorno_datos.position_which_is_right.length - 1; i >= 0; i--)
+    {
+        if(!retorno_datos.position_which_is_right[i])
+        {
+            retorno_datos.final_stage = "incorrect";
+            break;
+        }
+        else
+        {
+            retorno_datos.final_stage = "correct";
+        }
+    };
     retorno_datos.sym = sym; 
     retorno_datos.json = json_content;
 
