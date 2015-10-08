@@ -48,6 +48,11 @@ function ed_send_data(sym)
 
 function send_on_change()
 {
+    if (outer_stage.prop('ed_activity_end_block'))
+    {
+        return;
+    }
+		
     var sym = outer_stage.prop('ed_sym');
     var json_content = outer_stage.prop("ed_json_property_object");
     var retorno_datos = {};
@@ -91,20 +96,26 @@ function send_on_change()
 
     if(retorno_datos.isReady == true)
     {
-        if(sym.$("Submit").length>0)
+        if(!outer_stage.prop('ed_blocked'))
         {
-            sym.getSymbol("Submit").play("activado");
+            if(sym.$("Submit").length>0)
+            {
+                sym.getSymbol("Submit").play("activado");
+            }
         }
 
         outer_stage.prop('ed_blocked',false);        
     }
     else
     {
-        if(sym.$("Submit").length>0)
+        if (outer_stage.prop('ed_blocked'))
         {
-            sym.getSymbol("Submit").playReverse("desactivado");
+            if(sym.$("Submit").length>0)
+            {
+                sym.getSymbol("Submit").playReverse("desactivado");
+            }
         }
-
+        
         outer_stage.prop('ed_blocked',true);
     }
 
@@ -157,6 +168,7 @@ $('body').on('EDGE_Recurso_sendPreviousData EDGE_Recurso_postSubmitApplied EDGE_
     {
         //Debe bloquear la actividad
         stage.prop('ed_blocked',true);
+        stage.prop('ed_activity_end_block',true);
         block_every_text(evt.sym);
     }
 
